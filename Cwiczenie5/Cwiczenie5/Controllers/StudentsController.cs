@@ -68,13 +68,13 @@ namespace Cwiczenie5.Controllers
         //3. usunięcie studenta
         [HttpPost]
         [Route("api/students/deleteStudent")] //zmień na student
-        public IActionResult DeleteStudent(string indexNumber)
+        public IActionResult DeleteStudent(ModifyStudentRequest request)
         {
 
             var db = new _2019SBDContext();
             var student = new Student
             {
-                IndexNumber = indexNumber
+                IndexNumber = request.IndexNumber
             };
 
             db.Attach(student);
@@ -82,7 +82,7 @@ namespace Cwiczenie5.Controllers
          
 
             db.SaveChanges();
-            return Ok(student);
+            return Ok(request.IndexNumber + " zostal usunięty");
         }
     }
 
