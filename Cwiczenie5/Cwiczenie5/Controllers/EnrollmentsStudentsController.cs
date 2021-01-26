@@ -39,14 +39,14 @@ namespace Cwiczenie5.Controllers
                     .OrderByDescending(d => d.StartDate) //rosnąco czy malejąco?
                     .FirstOrDefault();
 
-     /*    int idEnrollment;
+           int idEnrollment;
 
             if (res2 == null)
             {
                 //wyszukaj największ idEnrollment
 
                 var res3 = db.Enrollment 
-                    .OrderBy(d => d.IdEnrollment) //rosnąco czy malejąco?
+                    .OrderByDescending(d => d.IdEnrollment) //rosnąco czy malejąco?
                     .FirstOrDefault();
 
                 int maxIdEnrollment = res3.IdEnrollment;
@@ -57,7 +57,7 @@ namespace Cwiczenie5.Controllers
                 IdEnrollment = maxIdEnrollment+1,
                 StartDate = DateTime.Now,
                 Semester = 1,
-                IdStudy=idStudies
+                IdStudy=res.IdStudy
 
               };
 
@@ -67,7 +67,7 @@ namespace Cwiczenie5.Controllers
             }
                    
 
-            */
+           
 
 
             //odnajdz najnowszy wpis w enrollments zgodny z id nazwą studiów i wartość semestru 1. 
