@@ -19,7 +19,7 @@ namespace Cwiczenie5.DTOs.Requests
         public string LastName { get; set; }
 
         [Required]
-        public string BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
 
         [Required]
         public string Studies { get; set; }
