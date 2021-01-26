@@ -22,14 +22,56 @@ namespace Cwiczenie5.Controllers
         {
             var db = new _2019SBDContext();
             var res = db.Studies
-                .Where((d)=> d.Name==request.Studies).ToList();
+                .Where((d) => d.Name == request.Studies).FirstOrDefault();
 
-            if(res.Count==0)
+            if(res==null)
             {
                 return BadRequest(); 
             }
+            int idStudies = res.IdStudy;
 
-            return Ok(res);
+            var res2 = db.Enrollment
+                    .Where(d => d.Semester == 1 && d.IdStudy == idStudies)
+                    .OrderByDescending(d => d.StartDate) //rosnąco czy malejąco?
+                    .FirstOrDefault();
+
+    /*       int idEnrollment;
+
+            if (res2 == null)
+            {
+                //wyszukaj największ idEnrollment
+
+                var res3 = db.Enrollment 
+                    .OrderBy(d => d.IdEnrollment) //rosnąco czy malejąco?
+                    .FirstOrDefault();
+
+                int maxIdEnrollment = res3.IdEnrollment;
+
+                //stworz nowy
+                var e = new Enrollment()
+             {
+                IdEnrollment = maxIdEnrollment+1,
+                StartDate = DateTime.Now,
+                Semester = 1,
+                IdStudy=idStudies
+
+              };
+
+                db.Enrollment.Add(e);
+
+                db.SaveChanges();//póżniej zlikwidować
+            }
+                   
+
+            
+*/
+
+            //odnajdz najnowszy wpis w enrollments zgodny z id nazwą studiów i wartość semestru 1. 
+           
+
+
+
+            return Ok(res2);
         }
 
 
