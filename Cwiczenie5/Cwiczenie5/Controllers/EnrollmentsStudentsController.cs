@@ -108,7 +108,12 @@ namespace Cwiczenie5.Controllers
             db.SaveChanges();//póżniej zlikwidować !!!!!1111
 
             esr.IndexNumber = s.IndexNumber;
-           
+            esr.Studies = request.Studies;
+            esr.Semester = 1;
+            var res5 = db2.Enrollment
+                    .Where(d => d.IdEnrollment== esr.IdEnrollment).FirstOrDefault();
+            esr.StartDate = res5.StartDate;
+
 
 
             return Ok(esr);
