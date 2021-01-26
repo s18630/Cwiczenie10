@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Cwiczenie5.DTOs.Requests;
 using Cwiczenie5.DTOs.Responses;
 using Cwiczenie5.Models;
-using Cwiczenie5.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

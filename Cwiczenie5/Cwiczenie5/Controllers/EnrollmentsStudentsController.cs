@@ -51,12 +51,15 @@ namespace Cwiczenie5.Controllers
                     .FirstOrDefault();
 
                 int maxIdEnrollment = res3.IdEnrollment;
+                //ZMIEŃ UWAGA NA DATE teraz
 
+
+                esr.StartDate = DateTime.Today;
                 //stworz nowy
                 var e = new Enrollment()
                 {
                     IdEnrollment = maxIdEnrollment + 1,
-                    StartDate = DateTime.Now,
+                    StartDate = esr.StartDate,
                     Semester = 1,
                     IdStudy = res.IdStudy
 
@@ -103,9 +106,12 @@ namespace Cwiczenie5.Controllers
             db.Student.Add(s);
 
             db.SaveChanges();//póżniej zlikwidować !!!!!1111
+
+            esr.IndexNumber = s.IndexNumber;
            
 
-            return Ok(res4);
+
+            return Ok(esr);
         }
 
 
