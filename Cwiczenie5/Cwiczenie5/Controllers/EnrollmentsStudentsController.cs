@@ -21,6 +21,7 @@ namespace Cwiczenie5.Controllers
         public IActionResult EnrollStudent(EnrollStudentRequest request)
         {
             var db = new _2019SBDContext();
+
             var res = db.Studies
                 .Where((d) => d.Name == request.Studies).FirstOrDefault();
 
@@ -28,14 +29,16 @@ namespace Cwiczenie5.Controllers
             {
                 return BadRequest(); 
             }
-            int idStudies = res.IdStudy;
 
-            var res2 = db.Enrollment
+
+          int idStudies = res.IdStudy;
+
+       /*     var res2 = db.Enrollment
                     .Where(d => d.Semester == 1 && d.IdStudy == idStudies)
                     .OrderByDescending(d => d.StartDate) //rosnąco czy malejąco?
                     .FirstOrDefault();
 
-    /*       int idEnrollment;
+         int idEnrollment;
 
             if (res2 == null)
             {
@@ -63,15 +66,15 @@ namespace Cwiczenie5.Controllers
             }
                    
 
-            
-*/
+            */
+
 
             //odnajdz najnowszy wpis w enrollments zgodny z id nazwą studiów i wartość semestru 1. 
            
 
 
 
-            return Ok(res2);
+            return Ok(idStudies);
         }
 
 
