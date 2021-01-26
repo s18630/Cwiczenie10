@@ -69,16 +69,26 @@ namespace Cwiczenie5.Controllers
             {
                 idEnrollment = res2.IdEnrollment;
             }
-                   
-
-           
-
-
-            //sprawdź czy podany w zapytaniu indeks jest uniwersalny jeśli nie zwróć błąd            
 
 
 
-            return Ok(res2);
+            //  var db4 = new _2019SBDContext();
+            var res4 = db2.Student
+                    .Where(d => d.IndexNumber == request.IndexNumber).FirstOrDefault();
+
+            if(res4 != null)
+            {
+                return BadRequest();
+            }
+
+
+                    
+
+            //DODAJ STUDENTA      
+
+
+
+            return Ok(res4);
         }
 
 
