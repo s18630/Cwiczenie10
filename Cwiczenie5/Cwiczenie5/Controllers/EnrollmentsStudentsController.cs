@@ -63,15 +63,18 @@ namespace Cwiczenie5.Controllers
 
                 db.Enrollment.Add(e);
 
-                db.SaveChanges();//póżniej zlikwidować
+                db.SaveChanges();//póżniej zlikwidować !!!!!1111
+            }
+            else
+            {
+                idEnrollment = res2.IdEnrollment;
             }
                    
 
            
 
 
-            //odnajdz najnowszy wpis w enrollments zgodny z id nazwą studiów i wartość semestru 1. 
-           
+            //sprawdź czy podany w zapytaniu indeks jest uniwersalny jeśli nie zwróć błąd            
 
 
 
