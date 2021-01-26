@@ -24,6 +24,11 @@ namespace Cwiczenie5.Controllers
             var res = db.Studies
                 .Where((d)=> d.Name==request.Studies).ToList();
 
+            if(res.Count==0)
+            {
+                return BadRequest(); 
+            }
+
             return Ok(res);
         }
 
