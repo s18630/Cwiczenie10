@@ -14,6 +14,7 @@ namespace Cwiczenie5.DTOs.Responses
         public string StartDate { get; set; }
 
         public string Studies { get; set; }
+        public int IdEnrollment { get; set; }
 
         private string ConString;
 

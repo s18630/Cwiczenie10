@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cwiczenie5.DTOs.Requests;
+using Cwiczenie5.DTOs.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -39,13 +40,13 @@ namespace Cwiczenie5.Controllers
                     .OrderByDescending(d => d.StartDate) //rosnąco czy malejąco?
                     .FirstOrDefault();
 
-           int idEnrollment;
+            EnrollStudentResponse esr = new EnrollStudentResponse();
 
             if (res2 == null)
             {
                 //wyszukaj największ idEnrollment
 
-                var res3 = db.Enrollment 
+                var res3 = db.Enrollment
                     .OrderByDescending(d => d.IdEnrollment) //rosnąco czy malejąco?
                     .FirstOrDefault();
 
@@ -53,23 +54,28 @@ namespace Cwiczenie5.Controllers
 
                 //stworz nowy
                 var e = new Enrollment()
-             {
-                IdEnrollment = maxIdEnrollment+1,
-                StartDate = DateTime.Now,
-                Semester = 1,
-                IdStudy=res.IdStudy
+                {
+                    IdEnrollment = maxIdEnrollment + 1,
+                    StartDate = DateTime.Now,
+                    Semester = 1,
+                    IdStudy = res.IdStudy
 
-              };
+                };
 
                 db.Enrollment.Add(e);
+                esr.IdEnrollment = maxIdEnrollment + 1;
 
-                db.SaveChanges();//póżniej zlikwidować !!!!!1111
+                //    db.SaveChanges();//póżniej zlikwidować !!!!!1111
             }
             else
             {
-                idEnrollment = res2.IdEnrollment;
+                esr.IdEnrollment = res2.IdEnrollment;
+
             }
 
+
+
+          
 
 
             //  var db4 = new _2019SBDContext();
@@ -82,11 +88,22 @@ namespace Cwiczenie5.Controllers
             }
 
 
-                    
-
-            //DODAJ STUDENTA      
 
 
+            //DODAJ STUDENTA      //sprawdzić jak się savuje bez tamtego
+            var s = new Student()
+            {
+                 IndexNumber=request.IndexNumber,
+                 FirstName =request.FirstName,
+                 LastName=request.LastName, 
+                 BirthDate=request.BirthDate,
+                 IdEnrollment =  esr.IdEnrollment 
+           };
+
+            db.Student.Add(s);
+
+            db.SaveChanges();//póżniej zlikwidować !!!!!1111
+           
 
             return Ok(res4);
         }
