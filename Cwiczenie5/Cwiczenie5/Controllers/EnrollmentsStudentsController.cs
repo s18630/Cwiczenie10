@@ -31,14 +31,15 @@ namespace Cwiczenie5.Controllers
             }
 
 
-          int idStudies = res.IdStudy;
 
-       /*     var res2 = db.Enrollment
-                    .Where(d => d.Semester == 1 && d.IdStudy == idStudies)
+
+            var db2 = new _2019SBDContext();
+            var res2 = db2.Enrollment
+                    .Where(d => d.Semester == 1 && d.IdStudy == res.IdStudy)
                     .OrderByDescending(d => d.StartDate) //rosnąco czy malejąco?
                     .FirstOrDefault();
 
-         int idEnrollment;
+     /*    int idEnrollment;
 
             if (res2 == null)
             {
@@ -74,7 +75,7 @@ namespace Cwiczenie5.Controllers
 
 
 
-            return Ok(idStudies);
+            return Ok(res2);
         }
 
 
