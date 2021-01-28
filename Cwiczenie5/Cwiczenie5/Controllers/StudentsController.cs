@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cwiczenie5.DTOs.Requests;
+using Cwiczenie5.DTOs.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -35,49 +36,8 @@ namespace Cwiczenie5.Controllers
         public IActionResult ModifyStudent(ModifyStudentRequest request)
         {
             var db = new _2019SBDContext();
-            //  var res = db.Student.ToList();
-
-
-            /* var student = new Student
-             {
-                 IndexNumber = request.IndexNumber,
-                 FirstName = request.FirstName,
-                 LastName = request.LastName,
-                 BirthDate = request.BirthDate
-             };
-             db.Attach(student);
-             //sprawdź czy student istnieje ?
-            db.Entry(student).Property("FirstName").IsModified = true;
-            db.Entry(student).Property("LastName").IsModified = true;
-            db.Entry(student).Property("BirthDate").IsModified = true; // jak sie nie wpisze dodaje się automatyczne jeśli są wymogi null
-             //wtedy wtsrępuje bład 
-             //spróbuj drugą wersję
-             //no i nei sprawdza czy jest student
-             //i trzeba podać wszytskie
-            */
-            var response = new ModifyStudentRequest();
-
          
-
-/*
-            if (request.LastName != null)
-            {
-                var s = new Student
-                {
-                    IndexNumber = request.IndexNumber,
-                    FirstName = request.FirstName,
-                    BirthDate = request.BirthDate
-
-                    
-            };
-                db.Attach(s);
-
-
-
-            }*/
-
-
-
+         
             var s = new Student
             {
                 IndexNumber = request.IndexNumber,
@@ -107,29 +67,28 @@ namespace Cwiczenie5.Controllers
                 db.Entry(s).Property("BirthDate").IsModified = true;
 
             }
-            
+
+            db.SaveChanges(); 
+            var db2 = new _2019SBDContext();
+
+
+            var res = db2.Student
+                   .Where(d => d.IndexNumber==request.IndexNumber)
+                   .FirstOrDefault();
+
+           
+
+            var response = new ModifyStudentResponse();
+
+            response.IndexNumber = res.IndexNumber;
+            response.FirstName = res.FirstName;
+            response.LastName = res.LastName;
+            response.BirthDate = res.BirthDate;
 
 
 
-            // d1 znajduje sie pod system sledzenie zmian
-            // unchanged
-            //db.Add(d1);
-            //db.Entry(d1).Property("LastName").IsModified = true;
-            //db.Entry(d1).State = EntityState.Modified;
 
-
-            //    db.Entry(s).Property("FirstName").IsModified = true;
-            //    db.Entry(s).Property("LastName").IsModified = true;
-            //    db.Entry(s).Property("BirthDate").IsModified = true;
-
-
-
-            db.SaveChanges();
-
-
-
-
-            return Ok(request);
+            return Ok(response);
         }
 
 
