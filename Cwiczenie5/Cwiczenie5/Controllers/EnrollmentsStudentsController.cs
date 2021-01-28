@@ -184,28 +184,27 @@ namespace Cwiczenie5.Controllers
 
             }
 
-            db.SaveChanges();
+        //    db.SaveChanges();
 
 
 
 
             //teraz trzeba wszystkich studentów zrolować
-         /*   var res5 = db.Student
-              .Where((d) => d.IdEnrollment== response.IdEnrollment).ToList();
+            var res5 = db.Student
+              .Where((d) => d.IdEnrollment== res2.IdEnrollment).ToList();
 
 
             foreach (Student s in res5)
             {
-
                 s.IdEnrollment = response.IdEnrollment;
-              
+
             }
 
 
 
             db.SaveChanges();
 
-            */
+            
 
 
             return Ok(response);
