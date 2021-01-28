@@ -18,7 +18,7 @@ namespace Cwiczenie5.Controllers
 
         //1.zwraca liste studentów
         [HttpPost]
-        [Route("api/enrollments")]
+        [Route("api/enrollStudent")]
         public IActionResult EnrollStudent(EnrollStudentRequest request)
         {
             var db = new _2019SBDContext();

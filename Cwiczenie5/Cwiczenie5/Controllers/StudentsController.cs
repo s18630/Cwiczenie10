@@ -38,22 +38,91 @@ namespace Cwiczenie5.Controllers
             //  var res = db.Student.ToList();
 
 
-            var student = new Student
+            /* var student = new Student
+             {
+                 IndexNumber = request.IndexNumber,
+                 FirstName = request.FirstName,
+                 LastName = request.LastName,
+                 BirthDate = request.BirthDate
+             };
+             db.Attach(student);
+             //sprawdź czy student istnieje ?
+            db.Entry(student).Property("FirstName").IsModified = true;
+            db.Entry(student).Property("LastName").IsModified = true;
+            db.Entry(student).Property("BirthDate").IsModified = true; // jak sie nie wpisze dodaje się automatyczne jeśli są wymogi null
+             //wtedy wtsrępuje bład 
+             //spróbuj drugą wersję
+             //no i nei sprawdza czy jest student
+             //i trzeba podać wszytskie
+            */
+            var response = new ModifyStudentRequest();
+
+         
+
+/*
+            if (request.LastName != null)
+            {
+                var s = new Student
+                {
+                    IndexNumber = request.IndexNumber,
+                    FirstName = request.FirstName,
+                    BirthDate = request.BirthDate
+
+                    
+            };
+                db.Attach(s);
+
+
+
+            }*/
+
+
+
+            var s = new Student
             {
                 IndexNumber = request.IndexNumber,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 BirthDate = request.BirthDate
+
+
             };
-            db.Attach(student);
-            //sprawdź czy student istnieje ?
-            db.Entry(student).Property("FirstName").IsModified = true;
-            db.Entry(student).Property("LastName").IsModified = true;
-            db.Entry(student).Property("BirthDate").IsModified = true; // jak sie nie wpisze dodaje się automatyczne jeśli są wymogi null
-            //wtedy wtsrępuje bład 
-            //spróbuj drugą wersję
-            //no i nei sprawdza czy jest student
-            //i trzeba podać wszytskie
+             
+            db.Attach(s);
+
+            if(request.FirstName != null)
+            {
+                db.Entry(s).Property("FirstName").IsModified = true;
+
+            }
+
+            if (request.LastName != null)
+            {
+                db.Entry(s).Property("LastName").IsModified = true;
+
+            }
+
+            if (request.BirthDate != null)
+            {
+                db.Entry(s).Property("BirthDate").IsModified = true;
+
+            }
+            
+
+
+
+            // d1 znajduje sie pod system sledzenie zmian
+            // unchanged
+            //db.Add(d1);
+            //db.Entry(d1).Property("LastName").IsModified = true;
+            //db.Entry(d1).State = EntityState.Modified;
+
+
+            //    db.Entry(s).Property("FirstName").IsModified = true;
+            //    db.Entry(s).Property("LastName").IsModified = true;
+            //    db.Entry(s).Property("BirthDate").IsModified = true;
+
+
 
             db.SaveChanges();
 
