@@ -115,68 +115,104 @@ namespace Cwiczenie5.Controllers
             esr.StartDate = res5.StartDate;
 
 
-
+          
             return Ok(esr);
         }
 
 
 
-        //2. modyfikacja danych studenta
-/*
+     
         [HttpPost]
-        [Route("api/students/modifyStudent")] //zmień na student
-        public IActionResult ModifyStudent(ModifyStudentRequest request)
+        [Route("api/enrollments/promotions")] //zmień na student
+        public IActionResult PromoteStudents(PromoteStudentsRequest request)
         {
             var db = new _2019SBDContext();
             //  var res = db.Student.ToList();
 
+            
+            var res = db.Studies
+               .Where((d) => d.Name == request.Studies ).FirstOrDefault();
 
-            var student = new Student
+            if (res == null)
             {
-                IndexNumber = request.IndexNumber,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                BirthDate = request.BirthDate
-            };
-            db.Attach(student);
-            //sprawdź czy student istnieje ?
-            db.Entry(student).Property("FirstName").IsModified = true;
-            db.Entry(student).Property("LastName").IsModified = true;
-            db.Entry(student).Property("BirthDate").IsModified = true; // jak sie nie wpisze dodaje się automatyczne jeśli są wymogi null
-            //wtedy wtsrępuje bład 
-            //spróbuj drugą wersję
-            //no i nei sprawdza czy jest student
-            //i trzeba podać wszytskie
+                return BadRequest();
+            }
+
+            var res2 = db.Enrollment
+               .Where((d) => d.IdStudy == res.IdStudy && d.Semester == request.Semester).FirstOrDefault();
+
+            if (res == null)
+            {
+                return BadRequest();
+            }
+
+            var res3 = db.Enrollment
+              .Where((d) => d.IdStudy == res.IdStudy && d.Semester == request.Semester +1).FirstOrDefault();
+
+            PromoteStudentsResponse response = new PromoteStudentsResponse();
+
+            if (res3 == null)
+            {
+                //dodaj enrollment 
+
+
+
+                var res4 = db.Enrollment
+                    .OrderByDescending(d => d.IdEnrollment) //rosnąco czy malejąco?
+                    .FirstOrDefault();
+
+                int maxIdEnrollment = res4.IdEnrollment;
+               
+
+                response.StartDate = DateTime.Today;
+              
+                var e = new Enrollment()
+                {
+                    IdEnrollment = maxIdEnrollment + 1,
+                    StartDate = response.StartDate,
+                    Semester = request.Semester + 1,
+                    IdStudy = res.IdStudy
+
+                };
+
+                db.Enrollment.Add(e);
+                response.IdEnrollment = maxIdEnrollment + 1;
+            }
+            else
+            {
+                response.IdEnrollment = res3.IdEnrollment;
+
+            }
 
             db.SaveChanges();
 
 
 
 
-            return Ok(request);
+            //teraz trzeba wszystkich studentów zrolować
+         /*   var res5 = db.Student
+              .Where((d) => d.IdEnrollment== response.IdEnrollment).ToList();
+
+
+            foreach (Student s in res5)
+            {
+
+                s.IdEnrollment = response.IdEnrollment;
+              
+            }
+
+
+
+            db.SaveChanges();
+
+            */
+
+
+            return Ok(response);
         }
 
 
 
-        //3. usunięcie studenta
-        [HttpPost]
-        [Route("api/students/deleteStudent")] //zmień na student
-        public IActionResult DeleteStudent(ModifyStudentRequest request)
-        {
-
-            var db = new _2019SBDContext();
-            var student = new Student
-            {
-                IndexNumber = request.IndexNumber
-            };
-
-            db.Attach(student);
-           db.Remove(student);
-         
-
-            db.SaveChanges();
-            return Ok(request.IndexNumber + " zostal usunięty");
-        }*/
     }
 
 }

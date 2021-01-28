@@ -12,7 +12,7 @@ namespace Cwiczenie5.DTOs.Responses
      
         public int  Semester { get; set; }
 
-        public string StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         public string Studies { get; set; }
 

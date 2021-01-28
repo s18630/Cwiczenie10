@@ -64,32 +64,7 @@ namespace Cwiczenie5.Controllers
 
 
 
-        [HttpPost("api/enrollments/promotions")]
-
-        public IActionResult PromoteStudents(PromoteStudentsRequest request)
-        {
-
-            /*   using (SqlConnection con = new SqlConnection(ConString))
-               using (SqlCommand com = new SqlCommand())
-               {
-                   com.Connection = con;
-
-                   con.Open();
-                   com.CommandText = "PromoteStudents";
-                   //     "EXEc s18630.PromoteStudents @Studies , @Semester";
-
-                   com.CommandType = System.Data.CommandType.StoredProcedure;
-                   com.Parameters.AddWithValue("@Studies", SqlDbType.NVarChar).Value = request.Studies;
-                   com.Parameters.AddWithValue("@Semester", SqlDbType.Int).Value = request.Semester;
-
-
-                   //      com.Parameters.AddWithValue("Semester", request.Semester);
-                   //     com.Parameters.AddWithValue("Studies ", request.Studies);
-                   com.ExecuteNonQuery();
-            */
-
-
-            return Ok();
+        
 
                 
                 
@@ -137,8 +112,7 @@ namespace Cwiczenie5.Controllers
 
 
 
-    }
-
+    
         
 
 
